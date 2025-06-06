@@ -155,6 +155,8 @@ getEle("btnThemNV").onclick = () => {
   employeeList.addEmployee(employee);
   renderEmployeeList(employeeList.arr);
   setLocalStorage(employeeList.arr);
+  // Đóng modal sau khi thêm thành công
+  getEle("btnDong").click();
 };
 getEle("btnThem").onclick = function () {
   // Ẩn nút cập nhật
