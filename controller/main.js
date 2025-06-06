@@ -9,7 +9,7 @@ export const getEle = (id) => {
   return document.getElementById(id);
 };
 
-const getValue = (isAdd) => {
+const getValue = (isAdd = true) => {
   const account = getEle("tknv").value;
   const name = getEle("name").value;
   const email = getEle("email").value;
@@ -28,7 +28,6 @@ const getValue = (isAdd) => {
       validation.checkCharacterLength(account, "tbTKNV", "(*)Vui lòng nhập 4 - 6 ký tự", 4, 6) &&
       validation.checkIdExist(account, "tbTKNV", "(*) Tài khoản đã tồn tại", employeeList.arr);
   }
-
 
   // // tài khoản
   // isValid &= validation.checkEmpty(account, "tbTKNV", "(*) Vui lòng nhập tài khoản nhân viên") &&
