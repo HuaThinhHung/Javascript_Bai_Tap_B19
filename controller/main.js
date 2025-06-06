@@ -22,6 +22,7 @@ const getValue = (isAdd) => {
 
   // tạo flag (cờ)
   let isValid = true;
+
   if (isAdd) {
     isValid &= validation.checkEmpty(account, "tbTKNV", "(*) Vui lòng nhập tài khoản nhân viên") &&
       validation.checkCharacterLength(account, "tbTKNV", "(*)Vui lòng nhập 4 - 6 ký tự", 4, 6) &&
@@ -29,10 +30,10 @@ const getValue = (isAdd) => {
   }
 
 
-  // tài khoản
-  isValid &= validation.checkEmpty(account, "tbTKNV", "(*) Vui lòng nhập tài khoản nhân viên") &&
-    validation.checkCharacterLength(account, "tbTKNV", "(*)Vui lòng nhập 4 - 6 ký tự", 4, 6) &&
-    validation.checkIdExist(account, "tbTKNV", "(*) Tài khoản đã tồn tại", employeeList.arr);
+  // // tài khoản
+  // isValid &= validation.checkEmpty(account, "tbTKNV", "(*) Vui lòng nhập tài khoản nhân viên") &&
+  //   validation.checkCharacterLength(account, "tbTKNV", "(*)Vui lòng nhập 4 - 6 ký tự", 4, 6) &&
+  //   validation.checkIdExist(account, "tbTKNV", "(*) Tài khoản đã tồn tại", employeeList.arr);
 
   // họ tên
   isValid &= validation.checkEmpty(name, "tbTen", "(*) Vui lòng nhập tên nhân viên") &&
@@ -214,6 +215,8 @@ const onEditEmployee = (account) => {
 
     // Ẩn nút thêm mới
     getEle("btnThemNV").style.display = "none";
+    // Đóng modal sau khi thêm thành công
+    getEle("btnDong").click();
   }
 };
 window.onEditEmployee = onEditEmployee;
