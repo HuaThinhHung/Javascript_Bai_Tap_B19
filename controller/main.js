@@ -9,7 +9,7 @@ export const getEle = (id) => {
   return document.getElementById(id);
 };
 
-const getValue = () => {
+const getValue = (isAdd) => {
   const account = getEle("tknv").value;
   const name = getEle("name").value;
   const email = getEle("email").value;
@@ -22,39 +22,46 @@ const getValue = () => {
 
   // tạo flag (cờ)
   let isValid = true;
+  if (isAdd) {
+    isValid &= validation.checkEmpty(account, "tbTKNV", "(*) Vui lòng nhập tài khoản nhân viên") &&
+      validation.checkCharacterLength(account, "tbTKNV", "(*)Vui lòng nhập 4 - 6 ký tự", 4, 6) &&
+      validation.checkIdExist(account, "tbTKNV", "(*) Tài khoản đã tồn tại", employeeList.arr);
+  }
+
 
   // tài khoản
-  isValid &= validation.checkEmpty(account,"tbTKNV","(*) Vui lòng nhập tài khoản nhân viên", employeeList) &&
-    validation.checkCharacterLength(account,"tbTKNV", "(*)Vui lòng nhập 4 - 6 ký tự", 4, 6);
-  
+  isValid &= validation.checkEmpty(account, "tbTKNV", "(*) Vui lòng nhập tài khoản nhân viên") &&
+    validation.checkCharacterLength(account, "tbTKNV", "(*)Vui lòng nhập 4 - 6 ký tự", 4, 6) &&
+    validation.checkIdExist(account, "tbTKNV", "(*) Tài khoản đã tồn tại", employeeList.arr);
+
   // họ tên
-isValid &= validation.checkEmpty(name, "tbTen", "(*) Vui lòng nhập tên nhân viên") &&
+  isValid &= validation.checkEmpty(name, "tbTen", "(*) Vui lòng nhập tên nhân viên") &&
     validation.checkLetterOnly(name, "tbTen", "(*) Tên chỉ được chứa chữ");
 
-// email
-isValid &= validation.checkEmpty(email, "tbEmail", "(*) Vui lòng nhập email") &&
+  // email
+  isValid &= validation.checkEmpty(email, "tbEmail", "(*) Vui lòng nhập email") &&
     validation.checkEmail(email, "tbEmail", "(*) Email không hợp lệ");
 
-// mật khẩu
-isValid &= validation.checkEmpty(password, "tbMatKhau", "(*) Vui lòng nhập mật khẩu") &&
+  // mật khẩu
+  isValid &= validation.checkEmpty(password, "tbMatKhau", "(*) Vui lòng nhập mật khẩu") &&
     validation.checkPassword(password, "tbMatKhau", "(*) Mật khẩu từ 6-10 ký tự, gồm số, chữ in hoa, ký tự đặc biệt");
 
-// ngày làm
-isValid &= validation.checkEmpty(date, "tbNgay", "(*) Vui lòng nhập ngày làm") &&
+  // ngày làm
+  isValid &= validation.checkEmpty(date, "tbNgay", "(*) Vui lòng nhập ngày làm") &&
     validation.checkDate(date, "tbNgay", "(*) Ngày làm không đúng định dạng mm/dd/yyyy");
 
-// lương cơ bản
-isValid &= validation.checkEmpty(salary, "tbLuongCB", "(*) Vui lòng nhập lương") &&
+  // lương cơ bản
+  isValid &= validation.checkEmpty(salary, "tbLuongCB", "(*) Vui lòng nhập lương") &&
     validation.checkNumberRange(salary, "tbLuongCB", "(*) Lương từ 1.000.000 - 20.000.000", 1000000, 20000000);
 
-// chức vụ
-isValid &= validation.checkChucVu(position, "tbChucVu", "(*) Vui lòng chọn chức vụ hợp lệ");
+  // chức vụ
+  isValid &= validation.checkChucVu(position, "tbChucVu", "(*) Vui lòng chọn chức vụ hợp lệ");
 
-// giờ làm
-isValid &= validation.checkEmpty(timeWork, "tbGiolam", "(*) Vui lòng nhập số giờ làm") &&
+  // giờ làm
+  isValid &= validation.checkEmpty(timeWork, "tbGiolam", "(*) Vui lòng nhập số giờ làm") &&
     validation.checkNumberRange(timeWork, "tbGiolam", "(*) Giờ làm từ 80 - 200 giờ", 80, 200);
 
-// Nếu isValid là false => stop
+  // Nếu isValid là false => stop
   if (!isValid) return;
 
   // Tạo đối tượng employee từ lớp đối tượng Employee
@@ -112,7 +119,6 @@ const renderEmployeeList = (data) => {
 const resetForm = () => {
   getEle("formThemNV").reset();
 };
-
 
 /**
  *
